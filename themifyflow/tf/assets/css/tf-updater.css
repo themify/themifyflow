@@ -1,0 +1,108 @@
+/* prompt box
+---------------------------------------------------------------*/
+.prompt-box {
+    display: none;
+    margin: -80px 0 0 -160px;
+    padding: 15px 30px 15px;
+    color: #ccc;
+    width: 260px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 99999;
+    background-color: rgba(0,0,0,.8);
+    border-radius: 15px;
+    box-shadow: 0 1px 10px rgba(0,0,0,.4);
+}
+.prompt-box p {
+    clear: both;
+    padding: 10px 0;
+    margin: 0;
+}
+p.prompt-msg {
+    padding: 0 0 10px 0;
+    margin: 0;
+}
+.prompt-box .prompt-error {
+    color: #F99;	
+}
+.prompt-box .prompt-error a {
+    color: #f6bfbe;
+}
+.prompt-box label {
+    width: 90px;
+    float: left;
+}
+.prompt-box input {
+    float: left;
+    width: 160px;
+}
+.prompt-box .pushlabel {
+    margin-left: 200px !important;
+}
+.prompt-box .pushlabel input {
+    width: auto;
+}
+.overlay {
+    display: none;
+    background: #000;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    position: fixed;
+}
+/* Changelog */
+.show-changelog {
+    background: #fff;
+    padding: 15px;
+    width: 60%;
+    left: 40%;
+    height: 70%;
+    top: 25%;
+}
+.show-changelog iframe {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+}
+#tf_updater_license_form td{
+    vertical-align: top;
+    padding: 15px 8px;
+}
+#tf_updater_license_form input[type="text"]{
+    width:27em;   
+}
+.tf_updater_notifaction.tf_updater_error,
+.tf_updater_notifaction.updated{
+    margin: 5px 0;
+    width:27em;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+      background: #fff;
+    border-left: 4px solid #fff;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    padding: 1px 12px;
+}
+.tf_updater_notifaction p{
+    margin: .5em 0;
+    padding: 2px;
+}
+.tf_updater_wait{
+    opacity:0.5;
+    cursor:wait;
+    z-index:-1;
+    position:relative;
+}
+.tf_auto_update_input{
+    width: 115px;
+}
+.tf_updater_notifaction.tf_updater_error{
+    border-color: #dd3d36;
+}
+.tf_updater_notifaction.updated{
+    border-color: #7ad03a;
+}
