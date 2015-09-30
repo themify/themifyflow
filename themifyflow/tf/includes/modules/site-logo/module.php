@@ -67,7 +67,7 @@ class TF_Module_Site_Logo extends TF_module {
 						'description' => 'px',
 					),
 				),
-				'row_class' => 'logo_type logo_type-image tf-inline-fields',
+				'row_class' => 'logo_type logo_type-image',
 			),
 			'logo_link' => array(
 				'type' => 'text',

@@ -63,7 +63,6 @@ class TF_Element_Post_Text extends TF_Module_Element {
 		), $atts, $this->shortcode ); // must add the third params $this->shortcode, for builder shortcode rendering
 		$class = isset($atts['display_inline_block']) && $atts['display_inline_block']?' tf_element_inline_block':'';
 		$output = sprintf( '<div class="post-text%s">%s</div>',$class, do_shortcode( $content ) );		
-
 		return apply_filters( 'tf_shortcode_element_render', $output, $this->slug, $atts, $content );
 	}
 }

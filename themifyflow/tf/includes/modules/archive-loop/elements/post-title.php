@@ -79,13 +79,13 @@ class TF_Element_Post_Title extends TF_Module_Element {
 		), $atts, $this->shortcode ); // must add the third params $this->shortcode, for builder shortcode rendering
                 $class = isset($atts['display_inline_block']) && $atts['display_inline_block']?' tf_element_inline_block':'';
 		if ( 'no' == $atts['post_title_link_to_post'] ) {
-			$output = sprintf( '<%1$s class="tf_post_title%3$s">%2$s</%1$s>', 
+			$output = sprintf( '<%1$s itemprop="headline" class="tf_post_title%3$s">%2$s</%1$s>', 
 				$atts['post_title_tag'],
 				get_the_title(),
                                 $class
 			);
 		} else {
-			$output = sprintf( '<%1$s class="tf_post_title%5$s"><a href="%2$s" title="%3$s">%4$s</a></%1$s>', 
+			$output = sprintf( '<%1$s class="tf_post_title%5$s"><a itemprop="headline" href="%2$s" title="%3$s">%4$s</a></%1$s>', 
 				$atts['post_title_tag'],
 				get_permalink(), 
 				the_title_attribute( array( 'echo' => false ) ), 

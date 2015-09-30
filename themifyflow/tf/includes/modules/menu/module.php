@@ -2,6 +2,11 @@
 
 class TF_Module_Menu extends TF_module {
 
+	/**
+	 * Inline scripts used by menu module added to footer
+	 */
+	var $footer_scripts = '';
+
 	public function __construct() {
 		parent::__construct( array(
 			'name' => __( 'Menu', 'themify-flow' ),
@@ -13,6 +18,8 @@ class TF_Module_Menu extends TF_module {
 
 		include_once( dirname( __FILE__ ) . '/class-menu-dropdown.php' );
 		add_action( 'after_setup_theme', array( $this, 'register_default_menu_location' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
+		add_action( 'wp_footer', array( $this, 'footer_scripts' ), 99 );
 	}
 
 	public function fields() {
@@ -170,9 +177,18 @@ class TF_Module_Menu extends TF_module {
 		// mobile menu
 		if( 'yes' == $mobile_menu ) {
 			if( '__default' == $nav_menu ) {
-				echo '<div class="mobile-menu">';
-				$this->wp_dropdown_pages( array(), $mobile_menu_label );
-				echo '</div>';
+				if( has_nav_menu( 'default_menu' ) ) {
+					wp_nav_menu( array(
+						'theme_location' => 'default_menu',
+						'container' => false,
+						'walker'         => new Walker_Nav_Menu_TF_Dropdown(),
+						'items_wrap'     => '<div class="mobile-menu"><form><div class="tf_mobile_menu_wrap"><select onchange="if (this.value) window.location.href=this.value"><option value="">' . $mobile_menu_label . '</option>%3$s</select></div></form></div>',
+					) );
+				} else {
+					echo '<div class="mobile-menu">';
+					$this->wp_dropdown_pages( array(), $mobile_menu_label );
+					echo '</div>';
+				}
 			} else {
 				wp_nav_menu( array(
 					'menu' => $nav_menu,
@@ -195,6 +211,13 @@ class TF_Module_Menu extends TF_module {
 		<?php } ?>
 
 		<?php
+
+		// on touch devices add dropdown script
+		if( wp_is_mobile() ) {
+			wp_enqueue_script( 'themify-dropdown' );
+			$this->footer_scripts .= sprintf( 'jQuery(function(){ jQuery( ".tf_module_block_%s.tf_module_menu .tf_menu" ).themifyDropdown() });', $atts['sc_id'] );
+		}
+
 		$output = ob_get_clean();
 
 		return $output;
@@ -275,6 +298,17 @@ class TF_Module_Menu extends TF_module {
 		register_nav_menus( array(
 			'default_menu' => __( 'Default Menu', 'themify-flow' ),
 		) );
+	}
+
+	public function wp_enqueue_scripts() {
+		global $TF;
+		wp_register_script( 'themify-dropdown', $TF->framework_uri() . '/assets/js/themify.dropdown.js', array( 'jquery' ), $TF->get_version(), true );
+	}
+
+	public function footer_scripts() {
+		if( ! empty( $this->footer_scripts ) ) {
+			echo sprintf( '<script>%s</script>', $this->footer_scripts );
+		}
 	}
 }
 

@@ -225,7 +225,7 @@ class TF_Module_Archive_Loop extends TF_Module {
 	 * 
 	 * @since 1.0.0
 	 * @access public
-	 * @param array $atts 
+	 * @param array $original_atts 
 	 * @param string $content 
 	 * @return string
 	 */
@@ -273,7 +273,7 @@ class TF_Module_Archive_Loop extends TF_Module {
 						<?php echo do_shortcode( $content ); ?>
 
 						<?php do_action( 'tf_archive_loop_end_post' ); ?>
-
+                                                <meta itemprop="datePublished" content="<?php the_modified_date('c')?>"/>
 					</article>
 
 					<?php do_action( 'tf_archive_loop_after_post' ); ?>

@@ -71,7 +71,6 @@ TABLET BREAKPOINT (#pagewrap parent selector is added for overriding purpose)
 	STRUCTURE
 	================================================ */
 	#pagewrap #content {
-		padding-top: 12%;		
 		width: 100%;
 		max-width: 100%;
 		float: none;

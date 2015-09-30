@@ -222,6 +222,12 @@ function tf_styling_global_settings( $args ) {
 				'selector' => '#middlewrap',
 				'basic_styling' => array( 'background', 'padding', 'margin', 'border' ),
 			),
+                        'middle' => array(
+				'label' => __( 'Middle Container', 'themify-flow' ),
+				'parent' => 'container',
+				'selector' => '#middle',
+				'basic_styling' => array( 'background', 'padding', 'margin', 'border' ),
+			),
 			'content_container' => array(
 				'label' => __( 'Content Container', 'themify-flow' ),
 				'parent' => 'container',

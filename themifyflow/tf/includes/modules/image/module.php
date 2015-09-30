@@ -181,7 +181,7 @@ class TF_Module_Image extends TF_Module {
              
                 $image_size = 'blank' != $atts['image_size'] ? $atts['image_size'] : 'large';
                 $image_url =  self::getImage($atts['image_url'],$image_size);
-                $image = sprintf( '<img src="%s" width="%s" height="%s" alt="%s" title="%s" />',
+                $image = sprintf( '<img itemprop="image" src="%s" width="%s" height="%s" alt="%s" title="%s" />',
 			esc_attr($image_url ),
 			esc_attr( $atts['width'] ),
 			esc_attr( $atts['height'] ),

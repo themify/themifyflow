@@ -146,7 +146,7 @@ class TF_Module_Category_Title extends TF_Module {
                     }
                 }
                 else{
-                    $title =  sprintf('<p>%s</p>', __('<strong>Category Title</strong>', 'themify-flow') );
+                    $title = $before.(__('Category Title', 'themify-flow')).$after;
                 }
 		return $title;
 	}

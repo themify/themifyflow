@@ -98,7 +98,7 @@ class TF_Element_Featured_Image extends TF_Module_Element {
 			$post_thumbnail_object = get_post( $post_thumbnail );
 			$thumbnail_title = is_object( $post_thumbnail_object ) ? $post_thumbnail_object->post_title : '';
 			$image_attribute = wp_get_attachment_image_src( $post_thumbnail, $image_size );
-			$post_image = sprintf( '<img src="%s" alt="%s" width="%s" height="%s" />',
+			$post_image = sprintf( '<img itemprop="image" src="%s" alt="%s" width="%s" height="%s" />',
 				esc_url( $image_attribute[0] ),
 				esc_attr( $thumbnail_title ),
 				esc_attr( $atts['image_width'] ),

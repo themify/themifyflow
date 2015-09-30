@@ -45,8 +45,8 @@ class TF_Update_Check {
 		
 		$this->nicename_short = str_replace( 'Flow ', '', $this->nicename );
 		$this->version = $version;
-		$this->versions_url = 'http://themifyflow.com/versions/versions.xml';
-		$this->package_url = "http://themifyflow.com/files/{$this->name}/{$this->name}.zip";
+		$this->versions_url = 'https://themifyflow.com/versions/versions.xml';
+		$this->package_url = "https://themifyflow.com/files/{$this->name}/{$this->name}.zip";
 
 		if ( defined('WP_DEBUG') && WP_DEBUG ) {
 			delete_transient( "{$this->name}_new_update" );
@@ -165,8 +165,8 @@ class TF_Update_Check {
 					esc_attr( $this->package_url ),
 					esc_attr( $this->nicename_short ),
 					esc_attr( $this->update_type ),
-					esc_url( 'http://themifyflow.com/changelogs/' . $this->name . '.txt' ),
-					esc_url( 'http://themifyflow.com/changelogs/' . $this->name . '.txt' )
+					esc_url( 'https://themifyflow.com/changelogs/' . $this->name . '.txt' ),
+					esc_url( 'https://themifyflow.com/changelogs/' . $this->name . '.txt' )
 				);
 				$new_version = $newUpdate->version;
 			}
@@ -201,8 +201,8 @@ class TF_Update_Check {
 					esc_attr( $this->package_url ),
 					esc_attr( $this->nicename_short ),
 					esc_attr( $this->update_type ),
-					esc_url( 'http://themifyflow.com/changelogs/' . $this->name . '.txt' ),
-					esc_url( 'http://themifyflow.com/changelogs/' . $this->name . '.txt' )
+					esc_url( 'https://themifyflow.com/changelogs/' . $this->name . '.txt' ),
+					esc_url( 'https://themifyflow.com/changelogs/' . $this->name . '.txt' )
 				);
 				$new_version = $new->version;
 			}
@@ -320,8 +320,8 @@ class TF_Update_Check {
 			'confirm_refresh_webfonts'	=> __( 'Are you sure you want to refresh the Google Fonts list? This will also save the current settings.', 'themify-flow' ),
 			'confirm_update' => __( 'Make sure to backup before upgrading. Files and settings may get lost or changed.', 'themify-flow' ),
 			'confirm_delete_image' => __( 'Do you want to delete this image permanently?', 'themify-flow' ),
-			'invalid_login' => __( 'Invalid username or password.<br/>Contact <a href="http://themifyflow.com/contact">Themify</a> for login issues.', 'themify-flow' ),
-			'unsuscribed' => __( 'Your membership might be expired. Login to <a href="http://themifyflow.com/member">Themify</a> to check.', 'themify-flow' ),
+			'invalid_login' => __( 'Invalid username or password.<br/>Contact <a href="https://themifyflow.com/contact">Themify</a> for login issues.', 'themify-flow' ),
+			'unsuscribed' => __( 'Your membership might be expired. Login to <a href="https://themifyflow.com/member">Themify</a> to check.', 'themify-flow' ),
 			'enable_zip_upload' => sprintf(
 				__( 'Go to your <a href="%s">Network Settings</a> to enable <strong>zip</strong>, <strong>txt</strong> and <strong>svg</strong> extensions in <strong>Upload file types</strong>  field.', 'themify-flow' ),
 				esc_url( network_admin_url('settings.php').'#upload_filetypes' )
@@ -348,7 +348,7 @@ class TF_Update_Check {
 	 */
 	function tf_validate_login( $die = true ) {
 		$response = wp_remote_post(
-			'http://themifyflow.com/files/themify-login.php',
+			'https://themifyflow.com/files/themify-login.php',
 			array(
 				'timeout' => 300,
 				'headers' => array(),

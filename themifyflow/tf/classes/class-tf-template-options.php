@@ -41,9 +41,13 @@ class TF_Template_Options {
         public function tf_template_render(){ 
          
           if(is_singular(self::$post_types)){
-            global $TF_Layout,$post;
+            global $TF_Layout,$TF,$post;
             $template_id = get_post_meta( $post->ID, self::PREFIX.'_template', true );
             if($template_id){
+                $active_theme = get_post_meta($template_id,'associated_theme',TRUE);
+                if($active_theme!=$TF->active_theme->slug){
+                    return ;
+                }
                 $template = get_post($template_id);
                 if(!$template){
                     return;
@@ -149,15 +153,28 @@ class TF_Template_Options {
                 $template_parts = TF_Model::get_posts( 'tf_template_part' );
                 wp_nonce_field( self::PREFIX.'_metabox_nonce', self::PREFIX.'_metabox_nonce' );
                 $template_id = get_post_meta( $post->ID, self::PREFIX.'_template', true );
-                $header  = get_post_meta( $post->ID, self::PREFIX.'_header', true );
-                $header  =  $header?esc_attr($header):'default';
-                $header_template = $header=='custom'?get_post_meta( $post->ID, self::PREFIX.'_header_template', true ):false;
-                $sidebar = get_post_meta( $post->ID, self::PREFIX.'_sidebar', true );
-                $sidebar =  $sidebar?esc_attr($sidebar):'default';
-                $sidebar_template = $sidebar=='custom'?get_post_meta( $post->ID, self::PREFIX.'_sidebar_template', true ):false;
-                $footer  = get_post_meta( $post->ID, self::PREFIX.'_footer', true );
-                $footer  =  $footer?esc_attr($footer):'default';
-                $footer_template = $footer=='custom'?get_post_meta( $post->ID, self::PREFIX.'_footer_template', true ):false;
+                $find = false;
+                foreach ( $templates as $t ){
+                    if($template_id == $t->ID){
+                        $find = true;
+                        break;
+                    }
+                }
+                if($find){
+                    $header  = get_post_meta( $post->ID, self::PREFIX.'_header', true );
+                    $header  =  $header?esc_attr($header):'default';
+                    $header_template = $header=='custom'?get_post_meta( $post->ID, self::PREFIX.'_header_template', true ):false;
+                    $sidebar = get_post_meta( $post->ID, self::PREFIX.'_sidebar', true );
+                    $sidebar =  $sidebar?esc_attr($sidebar):'default';
+                    $sidebar_template = $sidebar=='custom'?get_post_meta( $post->ID, self::PREFIX.'_sidebar_template', true ):false;
+                    $footer  = get_post_meta( $post->ID, self::PREFIX.'_footer', true );
+                    $footer  =  $footer?esc_attr($footer):'default';
+                    $footer_template = $footer=='custom'?get_post_meta( $post->ID, self::PREFIX.'_footer_template', true ):false;
+                }
+                else{
+                    $header_template = $sidebar_template = $footer_template = false;
+                    $header = $sidebar = $footer = 'default';
+                }
             ?>
             <div class="tf_interface">
                 <div class="tf_lightbox_row">

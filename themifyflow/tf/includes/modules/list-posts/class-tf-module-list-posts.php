@@ -312,7 +312,7 @@ class TF_Module_List_Posts extends TF_Module {
 						<?php echo do_shortcode( $content ); ?>
 
 						<?php do_action( 'tf_list_post_end_post' ); ?>
-
+                                                <meta itemprop="datePublished" content="<?php the_modified_date('c')?>"/>
 					</article>
 
 					<?php do_action( 'tf_list_post_after_post' ); ?>

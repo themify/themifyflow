@@ -11,7 +11,7 @@
 
 <?php if ( have_comments() || comments_open() ) : ?>
 
-<div id="comments" class="tf_module_comments">
+<div id="comments" class="tf_module_comments" itemscope itemtype="http://schema.org/UserComments">
 
 	<?php tf_hook_comment_start(); //hook ?>
 
@@ -48,9 +48,9 @@
 	<?php if ( comments_open() ) : ?>
 
 		<?php
-		global $req, $aria_req, $user_identity;
-		global $aria_req;
-$custom_comment_form = array( 'fields' => apply_filters( 'comment_form_default_fields', array(
+                    global $req, $aria_req, $user_identity;
+                    global $aria_req;
+                    $custom_comment_form = array( 'fields' => apply_filters( 'comment_form_default_fields', array(
 			'author' => '<p class="comment-form-author">' .
 					'<input id="author" name="author" type="text" value="' .
 					esc_attr( $commenter['comment_author'] ) . '" size="30"' . $aria_req . ' class="required" />' .
@@ -70,7 +70,6 @@ $custom_comment_form = array( 'fields' => apply_filters( 'comment_form_default_f
 					'<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" class="required"></textarea>' .
 					'</p>',
 			'logged_in_as' => '<p class="logged-in-as">' . sprintf( __( 'Logged in as <a href="%s">%s</a>. <a href="%s">Log out?</a>', 'themify-flow' ), admin_url( 'profile.php' ), $user_identity, wp_logout_url( apply_filters( 'the_permalink', get_permalink( get_the_ID() ) ) )	) . '</p>',
-			'title_reply' => __( 'Leave a Reply' , 'themify-flow' ),
 			'comment_notes_before' => '',
 			'comment_notes_after' => '',
 			'cancel_reply_link' => __( 'Cancel' , 'themify-flow' ),

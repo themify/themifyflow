@@ -161,13 +161,13 @@ class TF_Module_Single_Loop extends TF_Module {
 	 * 
 	 * @since 1.0.0
 	 * @access public
-	 * @param array $atts 
+	 * @param array $original_atts 
 	 * @param string $content 
 	 * @return string
 	 */
-	public function render_shortcode( $atts, $content = null ) {
+	public function render_shortcode( $original_atts, $content = null ) {
 		$atts = shortcode_atts( array(
-		), $atts, $this->shortcode ); // must add the third params $this->shortcode, for builder shortcode rendering
+		), $original_atts, $this->shortcode ); // must add the third params $this->shortcode, for builder shortcode rendering
 
 		global $query_string, $TF;
 		$output = '';
@@ -192,7 +192,7 @@ class TF_Module_Single_Loop extends TF_Module {
 				<?php echo do_shortcode( $content ); ?>
 
 				<?php do_action( 'tf_single_loop_end_post' ); ?>
-
+                                <meta itemprop="datePublished" content="<?php the_modified_date('c')?>"/>    
 			</article>
 
 			<?php do_action( 'tf_single_loop_after_post' ); ?>

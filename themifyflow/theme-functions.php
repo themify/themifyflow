@@ -71,7 +71,7 @@ function tf_render_footer_text() {
 function tf_enqueue_scripts(){
 
 	// Get theme version for theme scripts and styles
-	$theme_version = wp_get_theme()->display('Version');
+	$theme_version = wp_get_theme('themifyflow')->display('Version');
 
 	///////////////////
 	//Enqueue styles
@@ -134,7 +134,7 @@ if ( ! function_exists( 'tf_theme_comment' ) ) {
 	function tf_theme_comment($comment, $args, $depth) {
 	   $GLOBALS['comment'] = $comment; ?>
 
-		<li itemprop="comment" id="comment-<?php comment_ID() ?>" <?php comment_class(); ?>>
+		<li  id="comment-<?php comment_ID() ?>" <?php comment_class(); ?>>
 			<p class="comment-author">
 				<?php echo get_avatar( $comment, $args['avatar_size'] ); ?>
 				<strong itemprop="creator"><?php echo get_comment_author_link(); ?></strong>
@@ -183,9 +183,7 @@ function tf_https_esc($url = ''){
 if ( ! function_exists( 'tf_get_html_schema' ) ) {
 	function tf_get_html_schema() {
 		$schema = 'http://schema.org/';
-		if ( is_single() ) {
-			$type = 'Article';
-		} elseif( is_author() ) {
+		if( is_author() ) {
 			$type = 'ProfilePage';
 		} elseif( is_search() ) {
 			$type = 'SearchResultsPage';
