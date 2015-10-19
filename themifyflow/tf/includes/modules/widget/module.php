@@ -16,7 +16,7 @@ class TF_Module_Widget extends TF_Module {
 			'slug' => 'widget',
 			'shortcode' => 'tf_widget',
 			'description' => __( 'Display widget.', 'themify-flow' ),
-			'category' => 'global'
+			'category' => 'content'
 		) );
 
 		add_action( 'wp_ajax_tf_builder_get_widget_form', array( $this, 'ajax_get_form' ) );

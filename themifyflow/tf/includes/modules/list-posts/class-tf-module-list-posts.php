@@ -16,7 +16,7 @@ class TF_Module_List_Posts extends TF_Module {
 			'slug' => 'lists-posts',
 			'shortcode' => 'tf_lists_posts',
 			'description' => 'Module to show posts from selected categories',
-			'category' => 'global'
+			'category' => 'content'
 		));
 	}
 

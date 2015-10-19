@@ -13,7 +13,7 @@ class TF_Module_Menu extends TF_module {
 			'slug' => 'menu',
 			'description' => __( 'Menu', 'themify-flow' ),
 			'shortcode' => 'tf_menu',
-			'category' => 'global'
+			'category' => 'content'
 		) );
 
 		include_once( dirname( __FILE__ ) . '/class-menu-dropdown.php' );
