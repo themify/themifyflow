@@ -979,9 +979,9 @@ class TF_Model {
 
                global $TF;
                if ( 'full' == $font_type) {
-                       $fonts = $TF->framework_uri() . '/assets/js/google-fonts.json';
+                       $fonts = $TF->framework_path() . '/assets/js/google-fonts.json';
                } else {
-                       $fonts = $TF->framework_uri() . '/assets/js/google-fonts-recommended.json';
+                       $fonts = $TF->framework_path() . '/assets/js/google-fonts-recommended.json';
                }
 
                return apply_filters( 'tf_google_fonts_file', $fonts );
