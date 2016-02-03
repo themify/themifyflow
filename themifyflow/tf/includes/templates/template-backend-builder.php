@@ -55,9 +55,12 @@ $tabs_exclude = array(
 	<div class="tf_row_panel clearfix">
 
 		<div id="tf_row_wrapper" class="tf_content_builder">
-			<?php 
-				$builder_content = in_array( $post->post_type, array( 'tf_template', 'tf_template_part' ) ) ? $post->post_content : get_post_meta( $post->ID, 'tf_builder_content', true );
-				echo do_shortcode( $builder_content );
+			<?php   
+                                global $wpdb;
+                                $value = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = %s", $post->ID, 'tf_builder_content') );
+				$value = $value?current($value):false;
+                                $builder_content = in_array( $post->post_type, array( 'tf_template', 'tf_template_part' ) ) ? $post->post_content : ($value?$value->meta_value:false);
+                                echo do_shortcode( $builder_content );
 			?>
 		</div> <!-- /#themify_builder_row_wrapper -->
 
@@ -81,6 +84,11 @@ $tabs_exclude = array(
 <!-- /themify_builder -->
 
 <script type="text/javascript">
+        <?php if($value):?>
+            jQuery(document).ready(function(){
+                jQuery('#meta-'+'<?php echo $value->meta_id?>').remove();
+            });
+        <?php endif;?>
 	var _tdBootstrapTemplate = <?php echo json_encode( TF_Model::read_template_data( $post->ID ) ); ?>;
 	var _tdBootstrapUtility = <?php echo json_encode( TF_Model::read_utility_data() ); ?>;
 	var _tdBootstrapStyles = <?php echo json_encode( $this->get_bootstrap_styles( $post->ID ) ); ?>;

@@ -83,16 +83,20 @@ class TF_Frontend {
 	 */
 	public function enqueue_scripts() {
 		global $TF, $TF_Layout;
-
+                $framework_url = $TF->framework_uri();
+                $version = $TF->get_version();
 		if ( TF_Model::is_tf_editor_active() ) {
-			wp_enqueue_style( 'tf-icons', $TF->framework_uri() . '/assets/css/themify-icons/themify-icons.css', array(), $TF->get_version() );
-			wp_enqueue_style( 'tf-admin-ui', $TF->framework_uri() . '/assets/css/tf-admin.css', array(), $TF->get_version() );
-			wp_enqueue_style( 'tf-minicolors-css', $TF->framework_uri() . '/assets/css/jquery.minicolors.css', array(), $TF->get_version() );
+			wp_enqueue_style( 'tf-icons', $framework_url . '/assets/css/themify-icons/themify-icons.css', array(), $version );
+			wp_enqueue_style( 'tf-admin-ui', $framework_url . '/assets/css/tf-admin.css', array(), $version );
+			wp_enqueue_style( 'tf-minicolors-css', $framework_url . '/assets/css/jquery.minicolors.css', array(), $version );
 		}
+                else{
+                     wp_enqueue_script('themify-scroll', $framework_url . '/assets/js/themify.scroll-highlight.js' , array( 'jquery' ), $version, true );
+                }
 
 		/* FontAwesome library
 		 * uses the same handle as used by Themify Builder to prevent double loading the fonts */
-		wp_enqueue_style( 'tf-icon-font', $TF->framework_uri() . '/assets/css/fontawesome/css/font-awesome.min.css', array(), '4.3' );
+		wp_enqueue_style( 'tf-icon-font', $framework_url . '/assets/css/fontawesome/css/font-awesome.min.css', array(), '4.3' );
 
 		if ( ! TF_Model::is_tf_editor_active() ) {
 			// Load styling stylesheets. Doesn't use framework_uri() because it's placed in the theme root.
@@ -168,11 +172,11 @@ class TF_Frontend {
 			}
 
 			foreach( $load_vendor_scripts as $handle => $script ) {
-				wp_enqueue_script( $handle, $TF->framework_uri() . '/assets/js/vendor' . $script , array( 'jquery' ), $TF->get_version(), true );
+				wp_enqueue_script( $handle, $framework_url . '/assets/js/vendor' . $script , array( 'jquery' ), $version, true );
 			}
 
 			foreach( $load_app_scripts as $handle => $script ) {
-				wp_enqueue_script( $handle, $TF->framework_uri() . '/assets/js/tf' . $script , array( 'jquery' ), $TF->get_version(), true );	
+				wp_enqueue_script( $handle, $framework_url . '/assets/js/tf' . $script , array( 'jquery' ), $version, true );	
 				if ( 'tf-app-js' == $handle ) {
 					$region = isset( $_GET['tf_region'] ) ? $_GET['tf_region'] : '';
 					$parent_template_id = isset( $_GET['parent_template_id'] ) ? $_GET['parent_template_id'] : '';
@@ -193,7 +197,7 @@ class TF_Frontend {
 						'is_custom_css' => TF_Model::is_tf_custom_css_active(),
 						'clear_style_text' => __('Do you want to clear all Styling data in this panel?', 'themify-flow'),
 						'base_path' => $TF->framework_path(),
-						'base_uri' => $TF->framework_uri(),
+						'base_uri' => $framework_url,
 						'beforeunload' => __( 'You have unsaved changes. Please save the builder data.', 'themify-flow'),
 						'isTouch' => wp_is_mobile(),
 						'leaving_template_lightbox' => __('Close editor without saving the changes ?', 'themify-flow')

@@ -424,14 +424,11 @@ class TF_Update_Check {
 
 		// If login is required
 		if ( 'true' == $_GET['login'] ) {
-			if ( 'true' == $this->tf_validate_login( false ) ) {
-				continue;
-			} else {
-				return;
-			}
+                    $this->tf_validate_login( false );
+                    return;
 		}
 
-		include ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+		include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
 		global $TF;
 		require_once $TF->framework_path() . '/classes/updater/class-tf-upgrader.php';

@@ -71,7 +71,7 @@ class TF_Shortcodes {
 		
 		$before = '';
 		$after = '';
-
+            
 		/* additional html attributes to add to the row wrapper */
 		$html_atts = '';
                 $classes = array_merge( 
@@ -80,6 +80,9 @@ class TF_Shortcodes {
 			);
                 if(!is_admin()){
                     $classes[] = 'grid_'.$atts['grid'];
+                }
+                if($atts['row_anchor']){
+                    $classes[] = 'tf_anchor_'.$atts['row_anchor'];
                 }
 		$row_attrs = apply_filters( 'tf_row_attrs', array(
 			'class' => $classes

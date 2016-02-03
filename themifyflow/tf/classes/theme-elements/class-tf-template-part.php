@@ -57,6 +57,8 @@ class TF_Template_Part {
 		add_action( 'tf_lightbox_render_form_template_part_duplicate', array( $this, 'render_duplicate_form' ) );
 		add_action( 'tf_form_validate_template_part_duplicate', array( $this, 'validate_fields' ) );
 		add_action( 'tf_form_saving_template_part_duplicate', array( $this, 'saving_duplicate_form' ) );
+
+		add_action( 'after_setup_theme', array( $this, 'themify_builder_support' ) );
 	}
 
 	/**
@@ -292,7 +294,7 @@ class TF_Template_Part {
 				}
 			}
 			$output = sprintf( '<div class="%s">', implode(' ', $classes ) );
-			$output .= $TF_Layout->render( $template->post_content );
+			$output .= apply_filters( 'tf_template_part_output', $TF_Layout->render( $template->post_content ), $template->ID );
 			$output .= '</div>';
 			$TF->in_template_part = false;
 		}
@@ -456,6 +458,44 @@ class TF_Template_Part {
 				update_post_meta( $post_id, $key, $_POST[ $key ] );
 		}
 
+	}
+
+	/**
+	 * Themify Builder plugin compatibility
+	 *
+	 * @since 1.1.8
+	 */
+	function themify_builder_support() {
+		if( class_exists( 'Themify_Builder' ) ) {
+			add_filter( 'themify_builder_post_types_support', array( $this, 'add_themify_builder_support' ) );
+			add_filter( 'themify_post_types', array( $this, 'add_themify_builder_support' ) );
+			add_filter( 'tf_template_part_output', array( $this, 'builder_render' ), 10, 2 );
+		}
+	}
+
+	/**
+	 * Enable Builder editor for the Flow Template Parts
+	 *
+	 * @since 1.1.8
+	 */
+	function add_themify_builder_support( $post_types ) {
+		$post_types[$this->post_type] = $this->post_type;
+
+		return $post_types;
+	}
+
+	/**
+	 * Render Builder data for Flow Template Parts
+	 *
+	 * @since 1.1.8
+	 */
+	function builder_render( $output, $post_id ) {
+		global $ThemifyBuilder;
+
+		$builder_data = $ThemifyBuilder->get_builder_data( $post_id );
+		$output .= $ThemifyBuilder->retrieve_template( 'builder-output.php', array( 'builder_output' => $builder_data, 'builder_id' => $post_id ), '', '', false );
+
+		return $output;
 	}
 }
 

@@ -173,7 +173,7 @@ class TF_Engine_Style_Loader {
 				}
 			}
 			$the_fonts = implode( '|', $the_fonts );
-			wp_enqueue_style( 'tf-google-fonts-' . md5( $the_fonts ), tf_https_esc( 'http://fonts.googleapis.com/css' ) . "?family=$the_fonts&subset=$subsets", array( 'flow-style' ) );
+			wp_enqueue_style( 'tf-google-fonts', tf_https_esc( 'http://fonts.googleapis.com/css' ) . "?family=$the_fonts&subset=$subsets", array( 'flow-style' ) );
 		}
 	}
 
