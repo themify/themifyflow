@@ -12,7 +12,7 @@
 		};
 	}
 
-	var pluginName = 'themifyFlowScrollHighlight',
+	var pluginName = 'themifyScrollHighlight',
 		defaults = {
 			speed: 900,
 			prefix: '.tf_anchor_',
@@ -49,7 +49,7 @@
 		highlightLink: function( hash ){
 			this.dehighlightLinks();
 			if ( '' != hash ) {
-				var $linkHash = $(this.options.navigation).find( 'a[href*=' + hash + ']' );
+				var $linkHash = $(this.options.navigation).find( 'a[href*="' + hash + '"]' );
 				if ( $linkHash.length > 0 ) {
 					$linkHash.each(function(){
 						var $link = $(this);
@@ -68,7 +68,7 @@
 		},
 
 		dehighlightLinks: function() {
-			$(this.options.navigation).find( 'a[href*=#]' ).each(function(){
+			$(this.options.navigation).find( 'a[href*="#"]' ).each(function(){
 				$(this).parent().removeClass( 'current_page_item' ).removeClass( 'current-menu-item' );
 			});
 		},
@@ -219,7 +219,7 @@
 			var self = this;
 
 			// Smooth Scroll and Link Highlight
-			$( this.options.context ).find( 'a[href*=#]' ).not( 'a[href=#]').not('a.ab-item').on( 'click', function (e) {
+			$( this.options.context ).find( 'a[href*="#"]' ).not( 'a[href="#"]').not('a.ab-item').on( 'click', function (e) {
 				// Build class to scroll to
 				var href = $(this).prop('hash'),
 					classToScroll = href.replace(/#/, self.options.prefix);
@@ -238,7 +238,7 @@
 			// Highlight Link when scroll over element
 			var elementsToCheck = [];
 			// Build list of elements to check visibility
-			$('div[class*=' + self.options.prefix.replace('.', '') + ']').not(self.options.exclude).each(function(){
+			$('div[class*="' + self.options.prefix.replace('.', '') + '"]').not(self.options.exclude).each(function(){
 				elementsToCheck.push('.' + $(this).attr('class').trim().replace(/\s{1,}/g, '.'));
 			});
 
@@ -259,7 +259,7 @@
 				if ( self.isHash( window.location.hash ) ) {
 					// If there's a hash, scroll to it
 					var hash = window.location.hash,
-						$linkHash = $( self.options.context ).find( 'a[href*=' + hash + ']' );
+						$linkHash = $( self.options.context ).find( 'a[href*="' + hash + '"]' );
 					if ( $linkHash.length > 0 ) {
 						$linkHash.each(function(){
 							var $link = $(this);
@@ -294,7 +294,7 @@
 		});
 	};
         $(document).ready(function(){
-            $('body').themifyFlowScrollHighlight();
+            $('body').themifyScrollHighlight();
         });
 
 })( jQuery, window, document );

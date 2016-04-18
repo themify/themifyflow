@@ -37,7 +37,7 @@
 	} )
 	// clicking menu items where the URL is only "#" is the same as clicking the dropdown arrow
 	.on( 'click touchstart', '.with-sub-arrow a', function(e){
-		if( $( this ).attr( 'href' ) == '#' ) {
+		if( $( this ).attr( 'href' ) === '#' ) {
 			e.stopPropagation();
 			$( this ).find( '> .sub-arrow' ).click();
 			return false;

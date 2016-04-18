@@ -161,16 +161,16 @@ var TF, wp, _;
 			$('span', $style).on('click', function(){
 				var clickedStyle = $(this).data('style');
 				if ( 'underline' === clickedStyle ) {
-					$('span.tf_active[data-style=linethrough]', $style).removeClass('tf_active');
+					$('span.tf_active[data-style="linethrough"]', $style).removeClass('tf_active');
 				}
 				if ( 'linethrough' === clickedStyle ) {
-					$('span.tf_active[data-style=underline]', $style).removeClass('tf_active');
+					$('span.tf_active[data-style="underline"]', $style).removeClass('tf_active');
 				}
 				if ( 'nostyle' === clickedStyle ) {
-					$('span:not([data-style=nostyle])', $style).removeClass('tf_active');
+					$('span:not([data-style="nostyle"])', $style).removeClass('tf_active');
 				}
 				if ( 'nostyle' !== clickedStyle ) {
-					$('span[data-style=nostyle]', $style).removeClass('tf_active');
+					$('span[data-style="nostyle"]', $style).removeClass('tf_active');
 				}
 				// Mark this as selected
 				$(this).toggleClass('tf_active');
@@ -202,10 +202,10 @@ var TF, wp, _;
 				$(this).toggleClass('tf_active');
 
 				if ( 'notexttransform' === clickedTextTrans ) {
-					$('span:not([data-texttransform=notexttransform])', $texttransform).removeClass('tf_active');
+					$('span:not([data-texttransform="notexttransform"])', $texttransform).removeClass('tf_active');
 				}
 				if ( 'notexttransform' !== clickedTextTrans ) {
-					$('span[data-texttransform=notexttransform]', $texttransform).removeClass('tf_active');
+					$('span[data-texttransform="notexttransform"]', $texttransform).removeClass('tf_active');
 				}
 
 				setup_data.texttransform = control._getSelectedData( $texttransform, 'texttransform' );
@@ -227,10 +227,10 @@ var TF, wp, _;
 				$(this).toggleClass('tf_active');
 
 				if ( 'noalign' === clickedAlign ) {
-					$('span:not([data-align=noalign])', $obj).removeClass('tf_active');
+					$('span:not([data-align="noalign"])', $obj).removeClass('tf_active');
 				}
 				if ( 'noalign' !== clickedAlign ) {
-					$('span[data-align=noalign]', $obj).removeClass('tf_active');
+					$('span[data-align="noalign"]', $obj).removeClass('tf_active');
 				}
 				setup_data.align = control._getSelectedData( $obj, 'align' );
 				control._updateField( setup_data, setting_key, $field );

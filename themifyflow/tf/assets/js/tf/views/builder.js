@@ -165,7 +165,6 @@
 
 					if(leftButtonDown) return false;
 
-					var parent = ui.item.parent();
 					//ThemifyPageBuilder.draggedNotTapped = false;
 					if(!ui.item.hasClass('active_module') && !ui.item.hasClass('tf_sub_row') ){
 						var module_name = ui.item.find('.tf_module').data('module-name');

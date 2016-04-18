@@ -328,7 +328,7 @@
 
 		_moduleDroppableText: function() {
 			$('.tf_module_holder', this.$el).each(function(){
-				if($(this).find('.tf_active_module').length == 0 && $(this).find('.tf_sub_row').length == 0 ){
+				if($(this).find('.tf_active_module').length === 0 && $(this).find('.tf_sub_row').length === 0 ){
 					$(this).find('.tf_empty_holder_text').show();
 				} else {
 					$(this).find('.tf_empty_holder_text').hide();
