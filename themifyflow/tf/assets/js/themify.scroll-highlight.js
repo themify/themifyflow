@@ -12,7 +12,7 @@
 		};
 	}
 
-	var pluginName = 'themifyScrollHighlight',
+	var pluginName = 'themifyFlowScrollHighlight',
 		defaults = {
 			speed: 900,
 			prefix: '.tf_anchor_',
@@ -294,7 +294,7 @@
 		});
 	};
         $(document).ready(function(){
-            $('body').themifyScrollHighlight();
+            $('body').themifyFlowScrollHighlight();
         });
 
 })( jQuery, window, document );
