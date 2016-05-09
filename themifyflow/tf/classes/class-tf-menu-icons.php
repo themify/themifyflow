@@ -57,17 +57,19 @@ class TF_Menu_Icons {
 	 * Save the icon meta for a menu item. Also removes the meta entirely if the field is cleared.
 	 */
 	function wp_update_nav_menu_item( $menu_id, $menu_item_db_id, $args ) {
-		$meta_key = '_menu_item_icon';
-		$meta_value = themifyflow_get_menu_icon( $menu_item_db_id );
-		$menu_item_icon = isset( $_POST['menu-item-icon'] ) && isset( $_POST['menu-item-icon'][$menu_item_db_id] ) ? $_POST['menu-item-icon'][$menu_item_db_id] : '';
-		$new_meta_value = stripcslashes( $menu_item_icon );
+		if( isset( $_POST['menu-item-icon'] ) && isset( $_POST['menu-item-icon'][$menu_item_db_id] ) ) {
+			$meta_key = '_menu_item_icon';
+			$meta_value = themifyflow_get_menu_icon( $menu_item_db_id );
+			$menu_item_icon =  $_POST['menu-item-icon'][$menu_item_db_id];
+			$new_meta_value = stripcslashes( $menu_item_icon );
 
-		if ( $new_meta_value && '' == $meta_value )
-			add_post_meta( $menu_item_db_id, $meta_key, $new_meta_value, true );
-		elseif ( $new_meta_value && $new_meta_value != $meta_value )
-			update_post_meta( $menu_item_db_id, $meta_key, $new_meta_value );
-		elseif ( '' == $new_meta_value && $meta_value )
-			delete_post_meta( $menu_item_db_id, $meta_key, $meta_value );
+			if ( $new_meta_value && '' == $meta_value )
+				add_post_meta( $menu_item_db_id, $meta_key, $new_meta_value, true );
+			elseif ( $new_meta_value && $new_meta_value != $meta_value )
+				update_post_meta( $menu_item_db_id, $meta_key, $new_meta_value );
+			elseif ( '' == $new_meta_value && $meta_value )
+				delete_post_meta( $menu_item_db_id, $meta_key, $meta_value );
+		}
 	}
 
 	/**
