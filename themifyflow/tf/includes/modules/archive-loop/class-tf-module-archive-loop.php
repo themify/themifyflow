@@ -7,6 +7,9 @@
  * @since 1.0.0
  */
 class TF_Module_Archive_Loop extends TF_Module {
+
+	var $query_parameters;
+
 	/**
 	 * Constructor.
 	 */
@@ -31,14 +34,6 @@ class TF_Module_Archive_Loop extends TF_Module {
 		global $TF;
 
 		$image_base = $TF->framework_uri() . '/assets/img/builder';
-                $categories = get_terms( 'category', array( 'hide_empty' => true ) );
-                $cats = array();
-                if(!empty($categories)){
-                    $cats[] = array('name'=>'---','value'=>'0');
-                    foreach ($categories as $c){
-                        $cats[] = array('name'=>$c->name,'value'=>$c->term_id);
-                    }
-                }
 		return apply_filters( 'tf_module_archive_loop_fields', array(
 			'layout'  => array(
 				'type'       => 'layout',
@@ -241,24 +236,25 @@ class TF_Module_Archive_Loop extends TF_Module {
 
 		$output = '';
 		
-                $build_query = array(
-                        'posts_per_page' =>get_option('posts_per_page'),
-                        'order' => $atts['order'],
-                        'orderby' => $atts['orderby']
-                );
+		$build_query = array(
+			'posts_per_page' =>get_option('posts_per_page'),
+			'order' => $atts['order'],
+			'orderby' => $atts['orderby']
+		);
 		if ( TF_Model::is_template_page()) {
 			query_posts( build_query( $build_query ) );
 		} else {
-			//query_posts( array_merge( $wp_query->query_vars, $build_query ) );
-			
-			// Fix Product archive page (site.com/shop) doesn't query product post_type, somehow using $query_string works.
-			query_posts( $query_string . '&' . build_query( $build_query ) );
+			// reset the query parameters set by the module
+			$this->query_parameters = $build_query;
+			add_filter( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
+			$wp_query->get_posts();
+			remove_filter( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
 		}
 		if ( have_posts() ) {
 			ob_start();
 			?>
 			<!-- loopswrapper -->
-                        <div class="tf_loops_wrapper clearfix <?php echo esc_attr( $atts['layout'] ); ?>">
+			<div class="tf_loops_wrapper clearfix <?php echo esc_attr( $atts['layout'] ); ?>">
 				<?php 
 				$TF->in_archive_loop = true;
 				while ( have_posts() ) {
@@ -273,7 +269,7 @@ class TF_Module_Archive_Loop extends TF_Module {
 						<?php echo do_shortcode( $content ); ?>
 
 						<?php do_action( 'tf_archive_loop_end_post' ); ?>
-                                                <meta itemprop="datePublished" content="<?php the_modified_date('c')?>"/>
+												<meta itemprop="datePublished" content="<?php the_modified_date('c')?>"/>
 					</article>
 
 					<?php do_action( 'tf_archive_loop_after_post' ); ?>
@@ -296,6 +292,14 @@ class TF_Module_Archive_Loop extends TF_Module {
 		wp_reset_postdata();
 
 		return $output;
+	}
+
+	function pre_get_posts( $query ) {
+		if( $query->is_main_query() ) {
+			$query->set( 'posts_per_page', $this->query_parameters['posts_per_page'] );
+			$query->set( 'order', $this->query_parameters['order'] );
+			$query->set( 'orderby', $this->query_parameters['orderby'] );
+		}
 	}
 }
 
